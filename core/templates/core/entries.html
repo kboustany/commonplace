@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+  <p>Entries</p>
+  
+  <ul>
+    {% for entry in entries %}
+      <li><a href="{% url 'core:entry' entry.id %}">{{ entry }}</a></li>
+    {% empty %}
+      <li>No entries have been added yet.</li>
+    {% endfor %}
+  </ul>
+
+{% endblock content %}

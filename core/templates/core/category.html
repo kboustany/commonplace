@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+  <p>Category: {{ category }}</p>
+
+  <ul>
+    {% for tag in tags %}
+      <li>
+        <a href="{% url 'core:tag' tag.id %}">{{ tag }}</a> -
+        Entries: {{ tag.entry_count }}
+      </li>
+    {% empty %}
+      <p>There are no tags associated to this category yet.</p>
+    {% endfor %}
+  </ul>
+
+{% endblock content %}

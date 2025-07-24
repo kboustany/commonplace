@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+  <p>Create a new entry:</p>
+
+  <form action="{% url 'core:create_entry' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_div }}
+    <button name='submit'>Create entry</button>
+  </form>
+
+{% endblock content %}

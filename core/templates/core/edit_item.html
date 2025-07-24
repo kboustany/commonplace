@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+  <p>Edit item:</p>
+
+  <form action="{% url 'core:edit_item' item.id %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_div }}
+    <button name="submit">Save Changes</button>
+  </form>
+
+{% endblock content %}

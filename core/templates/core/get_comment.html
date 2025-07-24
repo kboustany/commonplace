@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+
+<p>Comments:</p>
+
+<p>
+  {{ item.gpt_entry|linebreaks }}
+</p>
+
+<p>
+  <a href="{% url 'core:get_comment' item.id %}?flag=true">Refresh</a>
+</p>
+
+{% endblock content %}

@@ -1,0 +1,31 @@
+<p>
+  <a href="{% url 'core:index' %}">CommonPlace</a> -
+  <a href="{% url 'core:create_entry' %}">Create Entry</a> -
+  <a href="{% url 'core:entries' %}">All Entries</a> -
+  Categories:
+  <a href="{% url 'core:category' 'dates' %}">Dates</a> -
+  <a href="{% url 'core:category' 'events' %}">Events</a> -
+  <a href="{% url 'core:category' 'people' %}">People</a> -
+  <a href="{% url 'core:category' 'places' %}">Places</a> -
+  <a href="{% url 'core:category' 'themes' %}">Themes</a> -
+  <a href="{% url 'core:category' 'topics' %}">Topics</a> -
+  Account:
+  {% if user.is_authenticated %}
+  {{ user.username }}.
+  {% else %}
+  <a href="{% url 'accounts:register' %}">Register</a> -
+  <a href="{% url 'accounts:login' %}">Log in</a>
+  {% endif %}
+</p>
+
+{% block content %}{% endblock content %}
+
+{% block scripts %}{% endblock scripts %}
+
+{% if user.is_authenticated %}
+  <hr />
+  <form action="{% url 'accounts:logout' %}" method='post'>
+    {% csrf_token %}
+    <button name='submit'>Log out</button>
+  </form>
+{% endif %}

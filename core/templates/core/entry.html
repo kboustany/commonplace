@@ -1,0 +1,127 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+
+  <p>Entry: {{ entry }}</p>
+
+  <p>Description: {{ entry.description }}</p>
+
+  <p>Items:</p>
+    <ul>
+      {% for item in items %}
+        <li>
+          <p>
+            Title: {{ item }} -
+            <a href="{% url 'core:edit_item' item.id %}">Edit Item</a> -
+            <form action="{% url 'core:delete_item' item.id%}"
+                  method="post"
+                  onsubmit="return confirm(warning('delete', 'item'));">
+              {% csrf_token %}
+              <button type="submit">Delete</button>
+            </form>
+          </p>
+          <p>
+            Added: {{ item.date_added|date:'M d, Y H:i' }} -
+            Last modified: {{ item.last_modified|date:'M d, Y H:i' }}
+            <a href="{% url 'core:get_comment' item.id %}">More Info</a>
+          </p>
+          <p>{{ item.body|linebreaks }}</p>
+        </li>
+      {% empty %}
+        <p>There are no items in this entry yet.</p>
+      {% endfor %}
+  </ul>
+
+  <p>
+    New item:
+
+    <select id="item-type-select">
+      <option value="" selected disabled>-- Item --</option>
+      {% for item_type in item_types %}
+        <option value="{{ item_type }}">{{ item_type|title }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="button" onclick="goToItemForm()">Create</button>
+  </p>
+
+  <p>Tags:</p>
+  <ul>
+    {% for tag in tags %}
+      <li>
+        <a href="{% url 'core:tag' tag.id %}">{{ tag }}</a> -
+        <form action="{% url 'core:remove_tag' entry.id tag.id %}"
+              method="post"
+              onsubmit="return confirm(warning('remove', 'tag'));">
+          {% csrf_token %}
+          <button type="submit">Remove</button>
+        </form>
+      </li>
+    {% empty %}
+      <p>There are no tags associated to this category yet.</p>
+    {% endfor %}
+  </ul>
+
+  <p>
+    Add tag:
+
+    <select id="tag-select">
+      <option value="" selected disabled>-- Tag --</option>
+      {% for tag in all_tags %}
+        <option value="{{ tag.id }}">{{ tag }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="button" onclick="addTag()">Add</button>
+  </p>
+
+
+
+  <p>
+    <a href="{% url 'core:create_tag' entry.id %}">Create new tag</a>
+  </p>
+
+  <form action="{% url 'core:delete_entry' entry.id %}"
+        method="post"
+        onsubmit="return confirm(warning('detete', 'entry'));">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+  </form>
+
+{% endblock content %}
+
+{% block scripts %}
+
+  <script>
+    function goToItemForm() {
+      const itemType = document.getElementById('item-type-select').value;
+      const entryId = "{{ entry.id }}";
+
+      if (!itemType) {
+        alert("Please select an item type.");
+        return;
+      }
+
+      window.location.href = `/create_item/${itemType}/${entryId}/`;
+    }
+
+    function addTag() {
+      const tagId = document.getElementById('tag-select').value;
+      const entryId = "{{ entry.id }}";
+
+      if (!tagId) {
+        alert("Please select a tag.");
+        return;
+      }
+
+      window.location.href = `/add_tag/${entryId}/${tagId}/`;
+    }    
+
+    function warning(action, message) {
+      const warning = `Are you sure you want to ${action} this ${message}? This action cannot be undone.`;
+      return warning;
+    }
+  </script>
+
+{% endblock scripts%}
