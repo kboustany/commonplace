@@ -1,0 +1,52 @@
+<div class="modal fade"
+     id="{{ modal_id }}"
+     tabindex="-1"
+     aria-labelledby="{{ modal_id }}Label"
+     aria-hidden="true"
+     role="dialog">
+
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <form id="{{ form_id }}"
+            method="post"
+            action="{{ action_url }}"
+            autocomplete="off">
+
+        {% csrf_token %}
+
+        <div class="modal-header">
+
+          <h5 class="modal-title" id="{{ modal_id }}Label">{{ title }}</h5>
+
+          <button type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close">
+          </button>
+
+        </div>
+
+        <div class="modal-body"
+             id="{{ body_id }}"
+             {% if body_style %}style="{{ body_style }}"{% endif %}>
+
+          {% include form_partial %}
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="submit"
+                  class="btn {{ submit_class }}">
+            {{ submit_label }}
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+  
+</div>

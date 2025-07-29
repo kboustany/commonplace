@@ -1,0 +1,51 @@
+input.form-control:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+input.no-border-invalid.is-invalid {
+  box-shadow: none !important;
+}
+
+.link-box {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.link-box:hover {
+  background-color: #e2e6ea;
+  border-color: #adb5bd;
+}
+
+.nav-pills .nav-link.active {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000;
+  font-weight: normal;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-link:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #000;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tag-wrapper .tag-remove {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+.tag-wrapper:hover .tag-remove {
+    opacity: 1;
+    pointer-events: auto;
+}
