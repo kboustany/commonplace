@@ -67,8 +67,8 @@ input.no-border-invalid.is-invalid {
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
   border: 1px solid #ced4da;
-  font-family: 'Nunito', sans-serif;
-  font-size: 1.3rem;
+  font-family: 'Playpen Sans', sans-serif;
+  font-size: 1.2rem;
   line-height: 29px;
   padding-top: 4px;
 }
