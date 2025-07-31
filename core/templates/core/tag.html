@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  {% include "core/components/title.html" with title=tag label="Entries" count=entries|length %}
+  {% include "core/components/title.html" with title=tag label="Entries" count=count %}
 
   <div class="d-flex flex-column gap-2 py-2">
 
@@ -10,7 +10,7 @@
 
       <a href="{% url 'core:entry' entry.id %}" class="link-box">
 
-        <span class="fw-semibold text-muted text-truncate flex-grow-1">
+        <span class="fw-semibold text-truncate flex-grow-1">
           {{ entry.title }}
         </span>
 

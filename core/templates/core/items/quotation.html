@@ -1,0 +1,15 @@
+<div class="literary-item-box">
+
+  <div><br></div>
+
+  <blockquote class="mb-0">
+    “{{ item.body|linebreaksbr }}”
+  </blockquote>
+
+  <div><br></div>
+
+  <footer class="text-end">
+    — {{ item.author|default:"Unknown" }}
+  </footer>
+
+</div>

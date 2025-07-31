@@ -78,4 +78,28 @@ urlpatterns = [
         view=views.remove_tag,
         name='remove_tag',
     ),
+    # Modal for selecting an item type.
+    path(
+        route='select_item/<int:entry_id>/',
+        view=views.select_item,
+        name='select_item',
+    ),
+    # Page for creating a new item.
+    path(
+        route='create_item/<int:entry_id>/<str:item_type>/',
+        view=views.create_item,
+        name='create_item',
+    ),
+    # Page for creating a new item.
+    path(
+        route='edit_item/<int:item_id>/',
+        view=views.edit_item,
+        name='edit_item',
+    ),
+    # Modal for deleting an item.
+    path(
+        route='delete_item/<int:item_id>/',
+        view=views.delete_item,
+        name='delete_item',
+    ),
 ]

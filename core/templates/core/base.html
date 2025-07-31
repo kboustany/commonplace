@@ -10,7 +10,11 @@
   {% load django_bootstrap5 static %}
 
   {% bootstrap_css %}
-  <link rel="stylesheet" href="{% static 'core/styles.css' %}">
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+
+  <link href="{% static 'core/styles.css' %}" rel="stylesheet">
 
   {% bootstrap_javascript%}
 
@@ -33,7 +37,7 @@
             
             <div class="col-2 d-none d-md-block"></div>
 
-            <div class="col-12 col-md-8 bg-light">
+            <div class="col-12 col-md-8">
 
               <div>{% block content %}{% endblock content %}</div>
 

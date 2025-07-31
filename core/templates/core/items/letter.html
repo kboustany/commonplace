@@ -1,0 +1,49 @@
+<div class="handwritten-item-box">
+
+  <div><br></div>
+  
+  {% if item.date or item.location %}
+
+    <div class="text-end">
+      {% if item.date %}<div>{{ item.date }}</div>{% endif %}
+      {% if item.address %}<div>{{ item.address }}</div>{% endif %}
+      {% if item.location %}<div>{{ item.location }}</div>{% endif %}
+    </div>
+  
+  {% endif %}
+
+    <div><br></div>
+
+  {% if item.salutation %}
+
+    <div>{{ item.salutation }}</div>
+    <div><br></div>
+
+  {% endif %}
+
+  <div style="white-space: pre-line;">{{ item.body }}</div>
+  <div><br></div>
+
+  {% if item.closing %}
+
+    <div>{{ item.closing }}</div>
+
+  {% endif %}
+
+  {% if item.signature %}
+
+    <div>{{ item.signature }}</div>
+
+  {% endif %}
+
+  {% if item.postscript %}
+
+    <div><br></div>
+    <div>
+      <span>P.S.</span><br>
+      <span style="white-space: pre-line;">{{ item.postscript }}</span>
+    </div>
+
+  {% endif %}
+
+  </div>
