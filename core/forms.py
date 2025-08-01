@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import Entry, ItemType, Tag
-from .models import Letter, Paragraph, Quotation, Recipe
+from .models import Letter, Paragraph, Quotation, Recipe, Technical
 
 
 class EntryForm(forms.ModelForm):
@@ -141,9 +141,28 @@ class RecipeForm(forms.ModelForm):
         }
 
 
+class TechnicalForm(forms.ModelForm):
+    class Meta:
+        model = Technical
+        fields = [
+            'title',
+            'description',
+            'body',
+        ]
+        widgets = {
+            'description': forms.Textarea(
+                attrs={'cols': 80, 'placeholder': 'Description (optional)'}
+            ),
+            'body': forms.Textarea(
+                attrs={'cols': 80}
+            ),
+        }
+
+
 ITEM_FORMS = {
     Paragraph.type_key: ParagraphForm,
     Quotation.type_key: QuotationForm,
     Letter.type_key: LetterForm,
     Recipe.type_key: RecipeForm,
+    Technical.type_key: TechnicalForm,
 }

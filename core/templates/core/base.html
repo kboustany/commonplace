@@ -17,6 +17,29 @@
 
   <link href="{% static 'core/styles.css' %}" rel="stylesheet">
 
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      options: {
+        renderActions: {
+          assistiveMml: [],
+          typesetError: [
+            'TypesetError',
+            function (doc, math, err) {
+              console.warn('LaTeX Error:', err);
+              math.typesetRoot.innerHTML = '<span style="color:red;">LaTeX Error</span>';
+            },
+            ''
+          ]
+        }
+      }
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
   {% bootstrap_javascript%}
 
 </head>

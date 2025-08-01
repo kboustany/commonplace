@@ -28,6 +28,11 @@ input.no-border-invalid.is-invalid {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.mjx-display {
+  margin-top: 0.25em !important;
+  margin-bottom: 0.25em !important;
+}
+
 .nav-pills .nav-link.active {
   background-color: rgba(0, 0, 0, 0.1);
   color: #000;
@@ -68,7 +73,7 @@ input.no-border-invalid.is-invalid {
   box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
   border: 1px solid #ced4da;
   font-family: 'Playpen Sans', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 29px;
   padding-top: 4px;
 }
@@ -93,15 +98,15 @@ input.no-border-invalid.is-invalid {
       to right,
       transparent,
       transparent 28px,
-      #e0e0e0 28px,
-      #e0e0e0 29px
+      #efefef 28px,
+      #efefef 29px
     ),
     repeating-linear-gradient(
       to bottom,
       transparent,
       transparent 28px,
-      #e0e0e0 28px,
-      #e0e0e0 29px
+      #efefef 28px,
+      #efefef 29px
     );
   background-size: 29px 29px;
   background-repeat: repeat;

@@ -99,9 +99,17 @@ class Recipe(Item):
     directions = models.TextField()
 
 
+class Technical(Item):
+    """A technical document."""
+    type_key = 'technical'
+    body = models.TextField(
+        help_text="Enter LaTeX display math without any newline characters.",
+    )
+
+
 class ItemType(models.TextChoices):
     PARAGRAPH = Paragraph.type_key, 'Paragraph'
     QUOTATION = Quotation.type_key, 'Quotation'
     LETTER = Letter.type_key, 'Letter'
     RECIPE = Recipe.type_key, 'Recipe'
-    
+    TECHNICAL = Technical.type_key, 'Technical Document'
