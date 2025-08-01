@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "unsafe-secret")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["your-app-name.onrender.com", "yourdomain.com"]
+ALLOWED_HOSTS = ["commonplace-rkl9.onrender.com"]
 
 
 # Application definition
