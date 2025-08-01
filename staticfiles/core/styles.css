@@ -1,0 +1,121 @@
+/* Website styles. */
+input.form-control:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+input.no-border-invalid.is-invalid {
+  box-shadow: none !important;
+}
+
+.link-box {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.link-box:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #000;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.mjx-display {
+  margin-top: 0.25em !important;
+  margin-bottom: 0.25em !important;
+}
+
+.nav-pills .nav-link.active {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000;
+  font-weight: normal;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-link:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #000;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tag-wrapper .tag-remove {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.tag-wrapper:hover .tag-remove {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Custom item styles. */
+.handwritten-item-box {
+  background-color: #FFFFF0;
+    background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 28px,
+    #f0f8ff 28px,
+    #cce7ff 29px
+  );
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+  border: 1px solid #ced4da;
+  font-family: 'Playpen Sans', sans-serif;
+  font-size: 1.1rem;
+  line-height: 29px;
+  padding-top: 4px;
+}
+
+.literary-item-box {
+  background-color: #ffffff;
+  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+  border: 1px solid #ced4da;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.4rem;
+  line-height: 29px;
+  padding-top: 4px;
+}
+
+.technical-item-box {
+  background-color: #f0f8ff;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 28px,
+      #efefef 28px,
+      #efefef 29px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 28px,
+      #efefef 28px,
+      #efefef 29px
+    );
+  background-size: 29px 29px;
+  background-repeat: repeat;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+  border: 1px solid #ced4da;
+  font-family: Courier, Courier New, monospace;
+  font-size: 1.2rem;
+  line-height: 29px;
+  padding-top: 4px;
+}
