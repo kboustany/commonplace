@@ -1,0 +1,67 @@
+<header class="d-flex
+               justify-content-between align-items-center
+               position-sticky top-0 z-3
+               py-2 px-4
+               bg-white border-bottom"
+        style="min-height: 50px;">
+
+  <button type="button"
+          class="btn btn-sm btn-outline-success"
+          data-bs-toggle="modal"
+          data-bs-target="#createEntryModal">
+    Create Entry
+  </button>
+
+  <form id="searchEntryform"
+        class="flex-grow-1 mx-3"
+        method="get"
+        action="#"
+        style="max-width: 540px;"
+        data-entry-url-base="{% url 'core:entry' 0 %}">
+
+    <div class="input-group position-relative">
+
+      <input type="text"
+             id="entry-search-input"
+             name="q"
+             class="form-control form-control-sm border-primary"
+             placeholder="Search entries..."
+             autocomplete="off"
+             aria-label="Search">
+
+      <input type="hidden" id="selected-entry-id" name="entry_id">
+
+      <div id="entry-suggestions"
+           class="dropdown-menu show d-none position-absolute w-100"
+           style="top: 100%; z-index: 1000;">
+      </div>
+
+      <button class="btn btn-sm btn-outline-primary"
+              type="submit">
+        Go To Entry
+      </button>
+
+    </div>
+
+  </form>
+
+  <div class="d-flex align-items-center">
+
+    {% include "core/svgs/user.html" %}
+    
+    <span class="text-truncate text-body"
+          style="max-width: 94px;"
+          title="{{ user.username }}">
+      {{ user.username }}
+    </span>
+
+    <button type="button"
+            class="btn btn-sm btn-outline-danger ms-2"
+            data-bs-toggle="modal"
+            data-bs-target="#logoutModal">
+      Log Out
+    </button>
+    
+  </div>
+
+</header>

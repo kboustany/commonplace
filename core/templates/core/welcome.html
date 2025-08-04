@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CommonPlace</title>
+
+  {% load django_bootstrap5 static %}
+
+  {% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'core/styles.css' %}">
+
+  {% bootstrap_javascript%}
+
+</head>
+
+<body>
+
+  <div class="d-flex flex-column
+              justify-content-center align-items-center
+              px-3
+              bg-light text-center
+              vh-100 ">
+
+    <h1 class="display-1 fw-bold mb-3">CommonPlace</h1>
+
+    <p class="lead mb-5">
+      Your personal space to organize facts, ideas, and everything in between.
+    </p>
+
+    <div class="d-flex flex-wrap
+                justify-content-center
+                gap-4 ">
+
+      <button class="btn btn-outline-dark btn-lg px-5 py-3"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal">
+        Log In
+      </button>
+
+      <button class="btn btn-outline-dark btn-lg px-5 py-3"
+              data-bs-toggle="modal"
+              data-bs-target="#registerModal">
+        Register
+      </button>
+
+    </div>
+
+  </div>
+
+  {% url 'accounts:login' as login_url %}
+  {% include "core/components/form_modal.html" with modal_id="loginModal" form_id="loginForm" body_id="loginModalBody" title="Log In" submit_label="Log In" submit_class="btn-dark" action_url=login_url form_partial="core/partials/login_form.html" %}
+
+  {% url 'accounts:register' as register_url %}
+  {% include "core/components/form_modal.html" with modal_id="registerModal" form_id="registerForm" body_id="registerModalBody" title="Register" submit_label="Register" submit_class="btn-dark" action_url=register_url form_partial="core/partials/register_form.html" %}
+
+  <script src="{% static 'core/modals.js' %}"></script>
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+      formModal("loginForm", "loginModalBody");
+      formModal("registerForm", "registerModalBody");
+    });
+    
+  </script>
+
+</body>
+
+</html>

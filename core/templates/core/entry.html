@@ -1,0 +1,355 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+  <!-- Title. -->
+  <div class="py-2 text-center">
+
+    <h1 class="mb-0 display-7 fw-bold">{{ entry }}</h1>
+
+  </div>
+
+  <!-- Entry header. -->
+  <div class="d-flex
+              justify-content-between align-items-center
+              py-2"
+      style="min-height: 50px;">
+
+    <span class="flex-shrink-0 fs-5 text-muted text-nowrap">
+      {{ entry.date_added|date:"M d, Y, H:i" }}
+    </span>
+
+    <div class="d-flex align-items-center gap-2">
+
+      <button type="button"
+              class="btn btn-sm btn-outline-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#editEntryModal">
+        Edit Entry
+      </button>
+
+      <button type="button"
+              class="btn btn-sm btn-outline-danger"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteEntryModal">
+        Delete Entry
+      </button>
+      
+    </div>
+
+  </div>
+
+  <!-- Description. -->
+    <div class="py-2">
+
+      <p class="fs-6 my-0">
+        {{ entry.description|linebreaksbr }}
+      </p>
+
+    </div>
+
+  <!-- Tags header. -->
+  <div class="d-flex
+              justify-content-between align-items-center
+              py-2
+              border-top"
+       style="min-height: 50px;">
+
+    {% if tags %}
+
+      <span class="fs-5 text-muted">
+        Tags: {{ tag_count }}
+      </span>
+
+    {% else %}
+
+      <span class="fs-5 text-muted">
+        No tags
+      </span>
+
+    {% endif %}
+
+    <div class="d-flex align-items-center gap-2">
+
+      <button type="button"
+              class="btn btn-sm btn-outline-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#addTagModal">
+        Add Tag
+      </button>
+
+      <button type="button"
+              class="btn btn-sm btn-outline-success"
+              data-bs-toggle="modal"
+              data-bs-target="#createTagModal">
+        Create Tag
+      </button>
+      
+    </div>
+
+  </div>
+
+  <!-- Tags. -->
+  {% if tags %}
+
+    <div class="d-flex flex-wrap gap-2 py-2">
+
+      {% for tag in tags %}
+        
+        <div class="tag-wrapper position-relative">
+
+          <a href="{% url 'core:tag' tag.id %}"
+             class="link-box"
+             style="max-width: 200px;"
+             title="{{ tag.name }}">
+
+            <span class="fw-semibold text-muted text-truncate">
+              {{ tag.name }}
+            </span>
+
+          </a>
+
+          <button type="button"
+                  class="tag-remove btn btn-light btn-outline-danger
+                         rounded-circle position-absolute translate-middle
+                         d-flex align-items-center justify-content-center p-0"
+                  style="top: 0.3rem;
+                         right: -0.9rem;
+                         width: 1.25rem;
+                         height: 1.25rem;
+                         font-size: 0.85rem;
+                         line-height: 1;
+                         text-align: center;"
+                  data-bs-toggle="modal"
+                  data-bs-target="#removeTagModal"
+                  data-tag-id="{{ tag.id }}"
+                  data-entry-id="{{ entry.id }}">
+            &times;
+          </button>
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  {% endif %}
+
+  <!-- Items header. -->
+  <div class="d-flex
+              justify-content-between align-items-center
+              py-2
+              border-top"
+       style="min-height: 50px;">
+
+    {% if items %}
+
+      <span class="fs-5 text-muted">
+        Items: {{ item_count }}
+      </span>
+
+    {% else %}
+
+      <span class="fs-5 text-muted">
+        No items
+      </span>
+
+    {% endif %}
+
+    <div class="d-flex align-items-center gap-2">
+
+      <button type="button"
+              class="btn btn-sm btn-outline-success"
+              data-bs-toggle="modal"
+              data-bs-target="#selectItemModal">
+        Create Item
+      </button>
+      
+    </div>
+
+  </div>
+
+  <!-- Items. -->
+  
+  {% if items %}
+
+    {% for item in items %}
+
+      <!-- Item title. -->
+      <div class="pt-2">
+
+        <span class="fw-semibold fs-5">
+          {{ item }}
+        </span>
+
+      </div>
+
+      <!-- Item header. -->
+      <div class="d-flex
+                  justify-content-between align-items-center"
+          style="min-height: 50px;">
+
+        <div class="d-flex align-items-center gap-2">
+
+          <span class="flex-shrink-0 text-muted text-nowrap">
+            {{ item.date_added|date:"M d, Y, H:i" }}.
+          </span>
+
+          {% if item.last_modified|date:"YmdHis" != item.date_added|date:"YmdHis" %}
+
+            <span class="flex-shrink-0 text-muted text-nowrap">
+              Edited on {{ item.last_modified|date:"M d, Y, H:i" }}
+            </span>
+
+          {% endif %}
+
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+
+          {% url 'core:edit_item' item.id as edit_item_url%}
+          <button type="button"
+                  class="btn btn-sm btn-outline-primary"
+                  onclick="location.href='{{ edit_item_url }}'">
+            Edit Item
+          </button>
+
+          <button type="button"
+                  class="item-delete btn btn-sm btn-outline-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#deleteItemModal"
+                  data-item-id="{{ item.id }}">
+            Delete Item
+          </button>
+          
+        </div>
+
+      </div>
+
+      <!-- Item description (optional). -->
+      {% if item.description %}
+
+        <div class="pb-2">
+
+          <p class="my-0">
+            {{ item.description|linebreaksbr }}
+          </p>
+
+        </div>
+
+      {% endif %}
+
+      <!-- Item contents. -->
+      <div class="pb-3 border-bottom">
+
+        {% include "core/items/"|add:item.type_key|add:".html" with item=item only %}
+
+      </div>
+
+    {% endfor %}
+
+  {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+
+{% block modals %}
+
+  {{ block.super }}
+
+  {% url 'core:edit_entry' entry.id as edit_entry_url %}
+  {% include "core/components/form_modal.html" with modal_id="editEntryModal" form_id="editEntryForm" body_id="editEntryModalBody" title="Edit Entry" submit_label="Edit Entry" submit_class="btn-primary" action_url=edit_entry_url form_partial="core/partials/edit_entry_form.html" %}
+
+  {% url 'core:delete_entry' entry.id as delete_entry_url %}
+  {% include "core/components/confirm_modal.html" with modal_id="deleteEntryModal" title="Delete Entry" body="Are you sure you want to delete this entry?" confirm_label="Delete Entry" cancel_label="Cancel" confirm_class="btn-danger" action_url=delete_entry_url %}
+
+  {% url 'core:add_tag' entry.id as add_tag_url %}
+  {% include "core/components/form_modal.html" with modal_id="addTagModal" form_id="addTagForm" body_id="addTagModalBody" body_style="overflow: visible;" title="Add Tag" submit_label="Add Tag" submit_class="btn-primary" action_url=add_tag_url form_partial="core/partials/add_tag_form.html" %}
+
+  {% url 'core:create_tag' entry.id as create_tag_url %}
+  {% include "core/components/form_modal.html" with modal_id="createTagModal" form_id="createTagForm" body_id="createTagModalBody" title="Create Tag" submit_label="Create Tag" submit_class="btn-success" action_url=create_tag_url form_partial="core/partials/create_tag_form.html" %}
+
+  {% include "core/components/confirm_modal.html" with modal_id="removeTagModal" title="Remove Tag" body="Are you sure you want to remove this tag?" confirm_label="Remove Tag" cancel_label="Cancel" confirm_class="btn-danger" %}
+
+  {% url 'core:select_item' entry.id as select_item_url %}
+  {% include "core/components/form_modal.html" with modal_id="selectItemModal" form_id="selectItemForm" body_id="selectItemModalBody" title="Select Item Type" submit_label="Select" submit_class="btn-primary" action_url=select_item_url form_partial="core/partials/select_item_form.html" %}
+
+  {% include "core/components/confirm_modal.html" with modal_id="deleteItemModal" title="Delete Item" body="Are you sure you want to delete this item?" confirm_label="Delete Item" cancel_label="Cancel" confirm_class="btn-danger" %}
+
+{% endblock modals %}
+
+{% block scripts %}
+
+  {{ block.super }}
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+      formModal("editEntryForm", "editEntryModalBody");
+      formModal("createTagForm", "createTagModalBody");
+      formModal("selectItemForm", "selectItemModalBody");
+
+      searchBar({
+        inputId: 'tag-search-input',
+        suggestionsBoxId: 'tag-suggestions',
+        hiddenInputId: 'selected-tag-id',
+        searchUrl: "{% url 'core:search_tag' %}",
+      });
+
+      document.getElementById('addTagForm').addEventListener('submit', function (e) {
+        const selectedTagId = document.getElementById('selected-tag-id').value;
+
+        if (!selectedTagId) {
+          e.preventDefault();
+          const input = document.getElementById('tag-search-input');
+          input.value = '';
+          input.placeholder = 'Please select a valid tag';
+          input.classList.add('is-invalid', 'no-border-invalid');
+          input.focus();
+          return;
+        }     
+      });
+
+      const tagModal = document.getElementById('removeTagModal');
+      const tagForm = tagModal.querySelector('form');
+      document.querySelectorAll('.tag-remove').forEach(button => {
+        button.addEventListener('click', function () {
+          const tagId = this.getAttribute('data-tag-id');
+          const entryId = this.getAttribute('data-entry-id');
+          tagForm.action = `/remove_tag/${entryId}/${tagId}/`;
+        });
+      });
+
+      const itemModal = document.getElementById('deleteItemModal');
+      const itemForm = itemModal.querySelector('form');
+      document.querySelectorAll('.item-delete').forEach(button => {
+        button.addEventListener('click', function () {
+          const itemId = this.getAttribute('data-item-id');
+          itemForm.action = `/delete_item/${itemId}/`;
+        });
+      });
+
+    });
+
+  </script>
+
+{% endblock scripts %}

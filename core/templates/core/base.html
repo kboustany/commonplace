@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CommonPlace</title>
+
+  {% load django_bootstrap5 static %}
+
+  {% bootstrap_css %}
+
+  <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+
+  <link href="{% static 'core/styles.css' %}" rel="stylesheet">
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      options: {
+        renderActions: {
+          assistiveMml: [],
+          typesetError: [
+            'TypesetError',
+            function (doc, math, err) {
+              console.warn('LaTeX Error:', err);
+              math.typesetRoot.innerHTML = '<span style="color:red;">LaTeX Error</span>';
+            },
+            ''
+          ]
+        }
+      }
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+  {% bootstrap_javascript%}
+
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <div class="row">
+    
+      {% include "core/components/sidebar.html" %}
+  
+      <main class="col-12 col-md-9 col-lg-10
+                  px-md-0 position-relative">
+
+        {% include "core/components/header.html" %}          
+
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            
+            <div class="col-2 d-none d-md-block"></div>
+
+            <div class="col-12 col-md-8">
+
+              <div>{% block content %}{% endblock content %}</div>
+
+            </div>
+
+            <div class="col-2 d-none d-md-block"></div>
+
+          </div>
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+  {% block modals %}
+
+    {% url 'core:create_entry' as create_entry_url %}
+    {% include "core/components/form_modal.html" with modal_id="createEntryModal" form_id="createEntryForm" body_id="createEntryModalBody" title="Create Entry" submit_label="Create Entry" submit_class="btn-success" action_url=create_entry_url form_partial="core/partials/create_entry_form.html" %}
+  
+    {% url 'accounts:logout' as logout_url %}
+    {% include "core/components/confirm_modal.html" with modal_id="logoutModal" title="Log Out" body="Are you sure you want to log out of CommonPlace?" confirm_label="Log Out" cancel_label="Cancel" confirm_class="btn-danger" action_url=logout_url %}
+
+  {% endblock modals %}
+
+  {% block scripts %}
+
+    <script src="{% static 'core/modals.js' %}"></script>
+
+    <script>
+
+      document.addEventListener("DOMContentLoaded", function () {
+        formModal("createEntryForm", "createEntryModalBody");
+        
+        searchBar({
+          inputId: 'entry-search-input',
+          suggestionsBoxId: 'entry-suggestions',
+          hiddenInputId: 'selected-entry-id',
+          searchUrl: "{% url 'core:search_entry' %}",
+        });
+
+        document.getElementById('searchEntryform').addEventListener('submit', function (e) {
+          const selectedId = document.getElementById('selected-entry-id').value;
+          const input = document.getElementById('entry-search-input');
+
+            if (!selectedId) {
+              e.preventDefault();
+              input.value = '';
+              input.placeholder = 'Please select a valid entry';
+              input.classList.add('is-invalid', 'no-border-invalid');
+              input.focus();
+              return;
+            }
+
+            e.preventDefault();
+            const baseUrl = this.dataset.entryUrlBase;
+            const redirectUrl = baseUrl.replace(/0(\/)?$/, selectedId + '$1');
+            window.location.href = redirectUrl;          
+        });
+      });
+
+    </script>
+
+  {% endblock scripts %}
+
+</body>
+
+</html>

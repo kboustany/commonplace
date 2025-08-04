@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+  {% include "core/components/title.html" with title=category label="Tags" count=count %}
+
+  {% if tags %}
+
+    <div class="d-flex flex-wrap gap-2 py-2">
+
+      {% for tag in tags %}
+
+        <a href="{% url 'core:tag' tag.id %}"
+           class="link-box"
+           style="max-width: 200px;"
+           title="{{ tag.name }}">
+
+          <span class="fw-semibold text-muted text-truncate">
+            {{ tag.name }}
+          </span>
+
+        </a>
+
+      {% endfor %}
+
+    </div>
+
+  {% else %}
+
+    <div class="d-flex align-items-center justify-content-center text-center"
+         style="min-height: 60vh;">
+      <div class="px-3">
+
+        <p class="lead text-muted">
+          There are no tags under this category yet. <br>
+          New tags can be created from within an entry.
+        </p>
+        
+      </div>
+    </div>
+
+  {% endif %}
+
+{% endblock content %}

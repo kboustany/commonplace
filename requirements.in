@@ -1,0 +1,8 @@
+dj-database-url
+django
+django-bootstrap5
+django-polymorphic
+gunicorn
+psycopg2-binary
+python-decouple
+whitenoise

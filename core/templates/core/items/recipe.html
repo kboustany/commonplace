@@ -1,0 +1,49 @@
+<div class="technical-item-box">
+
+  {% if item.time or item.servings %}
+
+    <div><br></div>
+
+    <div class="d-flex justify-content-between">
+
+      {% if item.time %}
+
+      <div>
+
+        <span class="fw-bold" style="text-decoration: underline;">
+          Preparation Time:</span>
+
+        {{ item.time }}
+
+      </div>
+
+      {% endif %}
+
+      {% if item.servings %}
+
+      <div>
+
+        <span class="fw-bold" style="text-decoration: underline;">
+          Servings:</span>
+
+        {{ item.servings }}
+
+      </div>
+      
+      {% endif %}
+
+    </div>
+
+  {% endif %}
+
+
+  <div style="white-space: pre-line;">
+    <span class="fw-bold" style="text-decoration: underline;">Ingredients:</span>
+    {{ item.ingredients }}
+  </div>
+  
+  <div style="white-space: pre-line;">
+    <span class="fw-bold" style="text-decoration: underline;">Directions:</span>
+    {{ item.directions }}
+  </div>
+</div>

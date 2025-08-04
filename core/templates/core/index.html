@@ -1,0 +1,51 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+  {% if entries %}
+
+    {% include "core/components/title.html" with title="Entries" label="Total" count=count %}
+
+    <div class="d-flex flex-column gap-2 py-2">
+
+      {% for entry in entries %}
+
+        <a href="{% url 'core:entry' entry.id %}" class="link-box">
+
+          <span class="fw-semibold text-truncate flex-grow-1">
+            {{ entry.title }}
+          </span>
+
+          <small class="flex-shrink-0 text-muted text-nowrap">
+            {{ entry.date_added|date:"M d, Y, H:i" }}
+          </small>
+          
+        </a>
+
+      {% endfor %}
+
+    </div>
+
+  {% else %}
+
+    <div class="d-flex align-items-center justify-content-center text-center"
+          style="min-height: 60vh;">
+      <div class="px-3">
+
+        <p class="lead text-muted">
+          Welcome to <strong>CommonPlace</strong>, your personal space to
+          collect and revisit the ideas, quotes, thoughts, and moments that
+          matter to you. Think of it as a quiet corner of the internet where
+          you can gather anything worth remembering—snippets from books,
+          passing reflections, insights from conversations—and keep them all
+          in one place. Whether you're a writer, a reader, or simply someone
+          who likes to notice things, CommonPlace is here to help you build
+          a meaningful archive of your own thinking.
+        </p>
+        
+      </div>
+    </div>
+
+  {% endif %}
+
+{% endblock content %}
