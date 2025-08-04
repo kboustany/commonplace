@@ -6,6 +6,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /commonplace
 
 ARG DEV=false
+ENV DEV=$DEV
 
 RUN if [ "$DEV" = "false" ]; then \
         apt-get update && apt-get install -y --no-install-recommends curl && \
@@ -28,6 +29,9 @@ RUN if [ "$DEV" = "false" ]; then \
 
 COPY . /commonplace/
 
-RUN if [ "$DEV" = "false" ]; then \
-        python manage.py collectstatic --noinput ; \
-    fi
+# Copy entrypoint script and make executable
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Use entrypoint.sh as the container entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
