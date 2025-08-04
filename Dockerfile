@@ -27,3 +27,7 @@ RUN if [ "$DEV" = "false" ]; then \
     fi
 
 COPY . /commonplace/
+
+RUN if [ "$DEV" = "false" ]; then \
+        pyhon manage.py collectstatic --noinput ; \
+    fi
